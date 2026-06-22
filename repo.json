@@ -1,0 +1,32 @@
+[
+  {
+    "Author": "Asphodel",
+    "Name": "Third Eye",
+    "Punchline": "View player information without manually clicking on them!",
+    "Description": "Lists all players in your current instance and lets you Examine, view their Adventure Plate, copy their name for /tell, invite them to party, or send a friend request — all without clicking on them directly.",
+    "InternalName": "XIVThirdEye",
+    "AssemblyVersion": "1.0.0.1",
+    "RepoUrl": "https://github.com/bimilbimil/XIVThirdEye",
+    "IconUrl": "https://raw.githubusercontent.com/bimilbimil/XIVThirdEye/main/thirdeye.png",
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": 15,
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadCount": 0,
+    "LastUpdate": 1782172572,
+    "LoadPriority": 0,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "DownloadLinkInstall": "https://github.com/bimilbimil/XIVThirdEye/releases/download/v1.0.0/XIVThirdEye.zip",
+    "DownloadLinkUpdate": "https://github.com/bimilbimil/XIVThirdEye/releases/download/v1.0.0/XIVThirdEye.zip",
+    "DownloadLinkTesting": "https://github.com/bimilbimil/XIVThirdEye/releases/download/v1.0.0/XIVThirdEye.zip",
+    "Tags": [
+      "utility",
+      "social",
+      "players",
+      "instance",
+      "examine"
+    ]
+  }
+]
