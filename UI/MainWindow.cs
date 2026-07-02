@@ -71,11 +71,11 @@ namespace XIVThirdEye.UI
                 return;
 
             ImGui.TableSetupScrollFreeze(0, 1);
-            ImGui.TableSetupColumn("Name",    ImGuiTableColumnFlags.None, 3f);
-            ImGui.TableSetupColumn("World",   ImGuiTableColumnFlags.None, 2f);
-            ImGui.TableSetupColumn("Job",     ImGuiTableColumnFlags.None, 1f);
-            ImGui.TableSetupColumn("Lv",      ImGuiTableColumnFlags.None, 0.6f);
-            ImGui.TableSetupColumn("Actions", ImGuiTableColumnFlags.None, 3.5f);
+            ImGui.TableSetupColumn("Name",  ImGuiTableColumnFlags.None, 3f);
+            ImGui.TableSetupColumn("World", ImGuiTableColumnFlags.None, 2f);
+            ImGui.TableSetupColumn("Job",   ImGuiTableColumnFlags.None, 1f);
+            ImGui.TableSetupColumn("Lv",    ImGuiTableColumnFlags.None, 0.6f);
+            ImGui.TableSetupColumn("##act", ImGuiTableColumnFlags.None, 0.5f);
             ImGui.TableHeadersRow();
 
             foreach (var pc in players)
@@ -99,45 +99,44 @@ namespace XIVThirdEye.UI
 
                 ImGui.PushID((int)pc.EntityId);
 
-                if (ImGui.SmallButton("Examine"))
-                {
-                    Examine(pc);
-                    _chat.Print($"[ThirdEye] Examining {name}");
-                }
+                if (ImGui.SmallButton("..."))
+                    ImGui.OpenPopup("##actions");
 
-                ImGui.SameLine();
-                if (ImGui.SmallButton("Plate"))
+                if (ImGui.BeginPopup("##actions"))
                 {
-                    OpenAdventurePlate(pc);
-                    _chat.Print($"[ThirdEye] Opening adventure plate for {name}");
-                }
-
-                ImGui.SameLine();
-                if (ImGui.SmallButton("Copy"))
-                {
-                    ImGui.SetClipboardText($"{name}@{world}");
-                    _chat.Print($"[ThirdEye] Copied: {name}@{world}");
-                }
-
-                ImGui.SameLine();
-                if (ImGui.SmallButton("Invite"))
-                {
-                    ChatHelper.Send($"/invite {name}");
-                    _chat.Print($"[ThirdEye] Party invite sent to {name}");
-                }
-
-                ImGui.SameLine();
-                if (ImGui.SmallButton("Friend"))
-                {
-                    ChatHelper.Send($"/friend {name}");
-                    _chat.Print($"[ThirdEye] Friend request sent to {name}");
-                }
-
-                ImGui.SameLine();
-                if (ImGui.SmallButton("Mute"))
-                {
-                    AddToMuteList(pc);
-                    _chat.Print($"[ThirdEye] Muted {name}");
+                    if (ImGui.MenuItem("Examine"))
+                    {
+                        Examine(pc);
+                        _chat.Print($"[ThirdEye] Examining {name}");
+                    }
+                    if (ImGui.MenuItem("View Adventure Plate"))
+                    {
+                        OpenAdventurePlate(pc);
+                        _chat.Print($"[ThirdEye] Opening adventure plate for {name}");
+                    }
+                    if (ImGui.MenuItem("Copy Name"))
+                    {
+                        ImGui.SetClipboardText($"{name}@{world}");
+                        _chat.Print($"[ThirdEye] Copied: {name}@{world}");
+                    }
+                    ImGui.Separator();
+                    if (ImGui.MenuItem("Invite to Party"))
+                    {
+                        ChatHelper.Send($"/invite {name}");
+                        _chat.Print($"[ThirdEye] Party invite sent to {name}");
+                    }
+                    if (ImGui.MenuItem("Send Friend Request"))
+                    {
+                        ChatHelper.Send($"/friend {name}");
+                        _chat.Print($"[ThirdEye] Friend request sent to {name}");
+                    }
+                    ImGui.Separator();
+                    if (ImGui.MenuItem("Mute"))
+                    {
+                        AddToMuteList(pc);
+                        _chat.Print($"[ThirdEye] Muted {name}");
+                    }
+                    ImGui.EndPopup();
                 }
 
                 ImGui.PopID();

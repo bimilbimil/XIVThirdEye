@@ -2,7 +2,7 @@
   "Author": "Asphodel",
   "Name": "Third Eye",
   "InternalName": "XIVThirdEye",
-  "AssemblyVersion": "1.0.0.2",
+  "AssemblyVersion": "1.0.0.3",
   "Description": "Lists all players in your current instance and lets you Examine, view their Adventure Plate, copy their name for /tell, invite them to party, or send a friend request — all without clicking on them directly.",
   "ApplicableVersion": "any",
   "DalamudApiLevel": 15,
