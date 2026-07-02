@@ -9,8 +9,6 @@ namespace XIVThirdEye.Core
     {
         public int Version { get; set; } = 1;
 
-        // Add plugin-specific settings here
-
         [NonSerialized]
         public IDalamudPluginInterface PluginInterface;
 

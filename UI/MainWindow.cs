@@ -6,7 +6,9 @@ using Dalamud.Bindings.ImGui;
 using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
+using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using XIVThirdEye.Core;
 using XIVThirdEye.Services;
@@ -78,13 +80,13 @@ namespace XIVThirdEye.UI
 
             foreach (var pc in players)
             {
-                var name = pc.Name.TextValue;
+                var name  = pc.Name.TextValue;
+                var world = pc.HomeWorld.Value.Name.ToString();
 
                 if (!string.IsNullOrEmpty(_searchFilter) &&
                     !name.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase))
                     continue;
 
-                var world = pc.HomeWorld.Value.Name.ToString();
                 var job   = pc.ClassJob.Value.Abbreviation.ToString();
                 var level = pc.Level.ToString();
 
@@ -131,6 +133,13 @@ namespace XIVThirdEye.UI
                     _chat.Print($"[ThirdEye] Friend request sent to {name}");
                 }
 
+                ImGui.SameLine();
+                if (ImGui.SmallButton("Mute"))
+                {
+                    AddToMuteList(pc);
+                    _chat.Print($"[ThirdEye] Muted {name}");
+                }
+
                 ImGui.PopID();
             }
 
@@ -164,6 +173,18 @@ namespace XIVThirdEye.UI
             var agent = AgentCharaCard.Instance();
             if (agent == null) return;
             agent->OpenCharaCard((GameObject*)pc.Address);
+        }
+
+        private static unsafe void AddToMuteList(IPlayerCharacter pc)
+        {
+            var uiModule = UIModule.Instance();
+            if (uiModule == null) return;
+            var uiDataModule = uiModule->GetUiDataModule();
+            if (uiDataModule == null) return;
+            var contentId = ((BattleChara*)pc.Address)->ContentId;
+            var worldId   = (ushort)pc.HomeWorld.RowId;
+            uiDataModule->Mutelist.Add(contentId, pc.Name.TextValue, worldId);
+            uiDataModule->SaveFile(false);
         }
 
         public void Dispose() { }

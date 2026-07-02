@@ -13,6 +13,7 @@ Third Eye lists all players in your current instance and gives you quick-action 
   - **Copy name** — copy their name to clipboard for use in `/tell`
   - **Invite to Party** — send a party invite directly
   - **Send Friend Request** — add them as a friend
+  - **Mute** — add them to your in-game mute list
 
 ## Requirements
 
